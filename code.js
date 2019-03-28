@@ -7,7 +7,25 @@ canvas.height = 500;
 let gameWidth;
 let playerPoints = 0;
 let aiPoints = 0;
+const startSpeed = 2;
+let multiplayer = true;
+const difficult = 0.3;
 
+const keyboard = e => {
+  console.log(e.keyCode)
+  if (e.keyCode === 38) {
+    playerPaddle.moveUp(collisionObjects);
+  } else if (e.keyCode === 40) {
+    playerPaddle.moveDown(collisionObjects);
+  }
+  if (multiplayer) {
+    if (e.keyCode === 104)
+      aiPaddle.moveUp(collisionObjects);
+    else if (e.keyCode === 98)
+      aiPaddle.moveDown(collisionObjects);
+  }
+
+}
 
 const ballMove = ballsGame => {
   ballsGame.forEach(ballGame => {
@@ -34,24 +52,46 @@ class Paddle {
     this.color = color;
     this.positionX = positionX;
     this.positionY = positionY;
-    this.speed = 3;
+    this.speed = 5;
     this.middleHeight = height / 2;
+  }
+
+  moveUp() {
+    this.positionY -= this.speed;
+  }
+
+  moveDown() {
+    this.positionY += this.speed;
   }
 }
 
-function Ball(size, color, positionX, positionY) {
-  this.width = size;
-  this.height = size;
-  this.color = color;
-  this.positionX = positionX;
-  this.positionY = positionY;
-  this.middleHeight = size / 2;
-  this.speedX = 2;
-  this.speedY = 2;
-  this.directionX = true; //true -> right
-  this.directionY = true; //true -> down
+class Ball {
+  constructor(size, color, positionX, positionY) {
+    this.width = size;
+    this.height = size;
+    this.color = color;
+    this.positionX = positionX;
+    this.positionY = positionY;
+    this.middleHeight = size / 2;
+    this.speedX = startSpeed;
+    this.speedY = startSpeed;
+    this.directionX = true; //true -> right
+    this.directionY = true; //true -> down
+  }
 
-  this.move = collisionObjects => {
+  resetBall() {
+    if (Math.round(Math.random()))
+      this.directionX = !this.directionX;
+    if (Math.round(Math.random()))
+      this.directionY = !this.directionY;
+    this.speedX = startSpeed;
+    this.speedY = startSpeed;
+    this.positionX = canvas.width / 2 - this.width / 2;
+    this.positionY = canvas.height / 2 - this.height / 2;
+  }
+
+
+  move(collisionObjects) {
     let collision = 0;
     const ballLeft = this.positionX;
     const ballRight = this.positionX + this.width;
@@ -67,10 +107,10 @@ function Ball(size, color, positionX, positionY) {
 
         if (this === collisionObjects[i])
           continue;
-        else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
-          this.directionX != this.directionX;
-          break;
-        }
+        // else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
+        //   this.directionX = !this.directionX;
+        //   break;
+        // }
 
         if ((ballLeft < objectRight && ((objectLeft <= ballLeft + this.speedX && ballLeft + this.speedX <= objectRight) || (objectLeft <= ballRight + this.speedX && ballRight + this.speedX <= objectRight))) && (ballTop < objectBottom && ((objectTop <= ballTop + this.speedY && ballTop + this.speedY <= objectBottom) || (objectTop <= ballBottom + this.speedY && ballBottom + this.speedY <= objectBottom)))) {
           collision = 1;
@@ -94,14 +134,12 @@ function Ball(size, color, positionX, positionY) {
         let objectTop = collisionObjects[i].positionY;
         let objectBottom = collisionObjects[i].positionY + collisionObjects[i].height;
 
-        if (this === collisionObjects[i]) {
+        if (this === collisionObjects[i])
           continue;
-        } else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
-          this.directionX != this.directionX;
-          break;
-        }
-
-
+        //  else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
+        //   this.directionX = !this.directionX;
+        //   break;
+        // }
 
         if ((ballLeft < objectRight && ((objectLeft <= ballLeft + this.speedX && ballLeft + this.speedX <= objectRight) || (objectLeft <= ballRight + this.speedX && ballRight + this.speedX <= objectRight))) && (ballBottom > objectTop && ((objectTop <= ballTop - this.speedY && ballTop - this.speedY <= objectBottom) || (objectTop <= ballBottom - this.speedY && ballBottom - this.speedY <= objectBottom)))) {
           collision = 1;
@@ -127,10 +165,10 @@ function Ball(size, color, positionX, positionY) {
 
         if (this === collisionObjects[i])
           continue;
-        else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
-          this.directionX != this.directionX;
-          break;
-        }
+        // else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
+        //   this.directionX = !this.directionX;
+        //   break;
+        // }
 
         if ((ballRight > objectLeft && ((objectLeft <= ballLeft - this.speedX && ballLeft - this.speedX <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight))) && ((ballTop < objectBottom && (objectTop <= ballTop + this.speedY && ballTop + this.speedY <= objectBottom) || (objectTop <= ballBottom + this.speedY && ballBottom + this.speedY <= objectBottom)))) {
           collision = 1;
@@ -155,10 +193,10 @@ function Ball(size, color, positionX, positionY) {
 
         if (this === collisionObjects[i])
           continue;
-        else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
-          this.directionX != this.directionX;
-          break;
-        }
+        // else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
+        //   this.directionX = !this.directionX;
+        //   break;
+        // }
 
         if ((ballRight > objectLeft && ((objectLeft <= ballLeft - this.speedX && ballLeft - this.speedX <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight))) && (ballBottom > objectTop && ((objectTop <= ballTop - this.speedY && ballTop - this.speedY <= objectBottom) || (objectTop <= ballBottom - this.speedY && ballBottom - this.speedY <= objectBottom)))) {
           collision = 1;
@@ -177,9 +215,9 @@ function Ball(size, color, positionX, positionY) {
 
     if (collision) {
       if (Math.round(Math.random())) {
-        this.speedX += (Math.round(Math.random()) / 10);
+        this.speedX += difficult + (Math.round(Math.random()) / 10);
       } else {
-        this.speedY += (Math.round(Math.random()) / 10);
+        this.speedY += difficult + (Math.round(Math.random()) / 10);
       }
       if (collision == 1) {
 
@@ -211,7 +249,6 @@ function Ball(size, color, positionX, positionY) {
 
 
 
-
 const drawObject = (collisionObjects, contex) => {
   collisionObjects.forEach(collisionObject => {
     contex.fillStyle = collisionObject.color;
@@ -239,4 +276,6 @@ const run = () => {
   drawObject(collisionObjects, ctx);
 }
 
+
+window.addEventListener('keydown', keyboard)
 let timer = setInterval(run, 1000 / 60);
