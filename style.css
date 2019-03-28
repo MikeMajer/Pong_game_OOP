@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -12,6 +13,50 @@ body {
     background-color: #000;
 }
 
-canvas {
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
     border: 2px solid #0ff;
+}
+
+.wrapper .table {
+    display: flex;
+    color: white;
+    flex-direction: row;
+    font-size: 25px;
+    font-weight: bold;
+    height: 100px;
+}
+
+.wrapper .table span {
+    display: inline-block;
+    flex-basis: 10%;
+    text-align: center;
+    line-height: 100px;
+}
+
+.wrapper .table h1 {
+    flex-basis: 80%;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    line-height: 100px;
+}
+
+.wrapper canvas {
+    border: 2px solid #0ff;
+}
+
+.wrapper .menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper .menu .reset {
+    font-size: 2em;
+    margin: 5px 0;
+
 }
