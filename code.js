@@ -6,6 +6,20 @@ canvas.width = 800;
 canvas.height = 500;
 
 
+let gameWidth;
+
+const updateGameWindow = () => {
+    gameWidth = canvas.width;
+    aiPaddle.positionX = canvas.width - 30;
+}
+
+const clearScreen = () => {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+}
+
+
 class Paddle {
     constructor(width, height, color, positionX, positionY) {
         this.width = width;
@@ -48,3 +62,13 @@ const aiPaddle = new Paddle(20, 120, 'red', canvas.width - 30, 50);
 const ball1 = new Ball(15, 'white', canvas.width / 2 - 4, canvas.height / 2 - 4);
 
 collisionObjects.push(playerPaddle, aiPaddle, ball1);
+
+const run = () => {
+    if (gameWidth !== canvas.width) {
+        updateGameWindow();
+    }
+    clearScreen();
+    drawObject(collisionObjects, ctx);
+}
+
+let timer = setInterval(run, 1000 / 60);
