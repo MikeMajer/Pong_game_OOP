@@ -6,14 +6,25 @@ const btnReset = document.querySelector(".reset");
 const btnAdd = document.querySelector(".add");
 const btnRemove = document.querySelector(".remove");
 
-canvas.width = 800;
+canvas.width = 900;
 canvas.height = 500;
 let gameWidth;
 let playerPoints = 0;
 let aiPoints = 0;
-const startSpeed = 2;
+const startSpeed = 3;
 let multiplayer = true;
 const difficult = 0.3;
+
+const updateGameWindow = () => {
+  gameWidth = canvas.width;
+  aiPaddle.positionX = canvas.width - 30;
+}
+
+const clearScreen = () => {
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+}
 
 addBall = () => {
   const ball2 = new Ball(15, 'white', canvas.width / 2 - 4, canvas.height / 2 - 4);
@@ -45,7 +56,7 @@ const resetGame = () => {
 }
 
 const keyboard = e => {
-  console.log(e.keyCode)
+
   if (e.keyCode === 38) {
     playerPaddle.moveUp(ballsGame);
   } else if (e.keyCode === 40) {
@@ -66,16 +77,6 @@ const ballMove = ballsGame => {
   })
 }
 
-const updateGameWindow = () => {
-  gameWidth = canvas.width;
-  aiPaddle.positionX = canvas.width - 30;
-}
-
-const clearScreen = () => {
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-}
 
 
 class Paddle {
@@ -126,7 +127,7 @@ class Paddle {
       ballLeft = ballsGame[i].positionX;
       ballRight = ballsGame[i].positionX + ballsGame[i].width;
 
-      if (((paddleLeft <= ballLeft && ballLeft <= paddleRight) || (paddleLeft <= ballRight && ballRight <= paddleRight) && (paddleTop >= ballBottom && (paddleTop - this.speed <= ballBottom)))) {
+      if ((((paddleLeft <= ballLeft && ballLeft <= paddleRight) || (paddleLeft <= ballRight && ballRight <= paddleRight)) && (paddleTop >= ballBottom && (paddleTop - this.speed <= ballBottom)))) {
         this.positionY = ballBottom;
         collision = !collision;
         break;
@@ -139,6 +140,8 @@ class Paddle {
     if (!collision) {
       this.positionY -= this.speed;
     }
+    console.log(this.positionY)
+    console.log(ballBottom)
   }
 
   moveDown(ballsGame) {
@@ -155,7 +158,7 @@ class Paddle {
       ballLeft = ballsGame[i].positionX;
       ballRight = ballsGame[i].positionX + ballsGame[i].width;
 
-      if (((paddleLeft <= ballLeft && ballLeft <= paddleRight) || (paddleLeft <= ballRight && ballRight <= paddleRight) && (paddleBottom <= ballTop && (paddleBottom + this.speed >= ballTop)))) {
+      if ((((paddleLeft <= ballLeft && ballLeft <= paddleRight) || (paddleLeft <= ballRight && ballRight <= paddleRight)) && (paddleBottom <= ballTop && (paddleBottom + this.speed >= ballTop)))) {
         this.positionY = ballTop - this.height;
         collision = !collision;
         break;
