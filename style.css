@@ -55,8 +55,8 @@ body {
     justify-content: center;
 }
 
-.wrapper .menu .reset {
+.wrapper .menu button {
     font-size: 2em;
-    margin: 5px 0;
+    margin: 5px 5px;
 
 }

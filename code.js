@@ -3,7 +3,8 @@ const ctx = canvas.getContext('2d');
 const playerPointsTable = document.querySelector(".playerPoints");
 const aiPointsTable = document.querySelector(".aiPoints");
 const btnReset = document.querySelector(".reset");
-
+const btnAdd = document.querySelector(".add");
+const btnRemove = document.querySelector(".remove");
 
 canvas.width = 800;
 canvas.height = 500;
@@ -13,6 +14,21 @@ let aiPoints = 0;
 const startSpeed = 2;
 let multiplayer = true;
 const difficult = 0.3;
+
+addBall = () => {
+  const ball2 = new Ball(15, 'white', canvas.width / 2 - 4, canvas.height / 2 - 4);
+  collisionObjects.push(ball2);
+  ballsGame.push(ball2);
+}
+
+removeBall = () => {
+  if (collisionObjects.length > 3) {
+    collisionObjects.pop();
+  }
+  if (ballsGame.length > 1) {
+    ballsGame.pop();
+  }
+}
 
 const updateScore = () => {
   playerPointsTable.textContent = playerPoints;
@@ -372,6 +388,12 @@ const run = () => {
   };
 }
 
-btnReset.addEventListener("click", resetGame)
-window.addEventListener('keydown', keyboard)
+btnReset.addEventListener("click", resetGame);
+
+window.addEventListener('keydown', keyboard);
+
+btnAdd.addEventListener("click", addBall);
+
+btnRemove.addEventListener("click", removeBall);
+
 let timer = setInterval(run, 1000 / 60);
