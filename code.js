@@ -5,6 +5,9 @@ const aiPointsTable = document.querySelector(".aiPoints");
 const btnReset = document.querySelector(".reset");
 const btnAdd = document.querySelector(".add");
 const btnRemove = document.querySelector(".remove");
+const checkBox = document.getElementById("check");
+const label = document.querySelector("label");
+
 
 canvas.width = 900;
 canvas.height = 500;
@@ -26,13 +29,22 @@ const clearScreen = () => {
 
 }
 
-addBall = () => {
+const multiplayerOption = () => {
+  if (checkBox.checked === true) {
+    label.style.color = "yellow";
+  } else {
+    aiPaddle.aiMove(ballsGame);
+    label.style.color = "white";
+  }
+}
+
+const addBall = () => {
   const ball2 = new Ball(15, 'white', canvas.width / 2 - 4, canvas.height / 2 - 4);
   collisionObjects.push(ball2);
   ballsGame.push(ball2);
 }
 
-removeBall = () => {
+const removeBall = () => {
   if (collisionObjects.length > 3) {
     collisionObjects.pop();
   }
@@ -76,8 +88,6 @@ const ballMove = ballsGame => {
     ballGame.move(collisionObjects);
   })
 }
-
-
 
 class Paddle {
   constructor(width, height, color, positionX, positionY) {
@@ -140,8 +150,7 @@ class Paddle {
     if (!collision) {
       this.positionY -= this.speed;
     }
-    console.log(this.positionY)
-    console.log(ballBottom)
+
   }
 
   moveDown(ballsGame) {
@@ -357,8 +366,6 @@ class Ball {
   }
 }
 
-
-
 const drawObject = (collisionObjects, contex) => {
   collisionObjects.forEach(collisionObject => {
     contex.fillStyle = collisionObject.color;
@@ -384,7 +391,7 @@ const run = () => {
   clearScreen();
   ballMove(ballsGame);
   updateScore();
-  aiPaddle.aiMove(ballsGame);
+  multiplayerOption();
   drawObject(collisionObjects, ctx)
   if (playerPoints === 10 || aiPoints === 10) {
     clearInterval(timer);

@@ -60,3 +60,12 @@ body {
     margin: 5px 5px;
 
 }
+
+.menu #check {
+    margin-left: 100px;
+
+}
+
+.menu label {
+    margin-left: 5px;
+}
