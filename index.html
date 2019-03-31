@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pong_OOP</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,12 +18,16 @@
             <h1>Welcome to game</h1>
             <span class="aiPoints">0</span>
         </div>
+        <div class="endLabel">
+            <h1 class="winMessage"></h1>
+            <button class="tryAgain"><i class="fas fa-redo"></i><span>Try Again!!!</span></button>
+        </div>
         <canvas></canvas>
         <div class="menu">
             <button class="reset">Reset</button>
             <button class="add">Add Ball</button>
             <button class="remove">Remove Ball</button>
-            <input type="checkbox" id="check" onclick="multiplayerOption">
+            <input type="checkbox" id="check" onclick="multiplayerOption()">
             <label for="check">Multiplayer</label>
         </div>
     </div>

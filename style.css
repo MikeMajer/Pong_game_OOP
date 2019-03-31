@@ -69,3 +69,51 @@ body {
 .menu label {
     margin-left: 5px;
 }
+
+.endLabel {
+    display: none;
+}
+
+.winMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4em;
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: 0px 0px 20px red;
+}
+
+.tryAgain {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    border: none;
+    color: white;
+    background: #000;
+    cursor: pointer;
+    transition: .3s linear;
+}
+
+.tryAgain span {
+    display: block;
+    margin-top: 20px;
+}
+
+.tryAgain:hover {
+    color: gray;
+}
+
+.fa-redo {
+    transition: .4s linear;
+}
+
+.tryAgain:hover .fa-redo {
+    transform: rotate(360deg);
+    color: red;
+}

@@ -7,6 +7,9 @@ const btnAdd = document.querySelector(".add");
 const btnRemove = document.querySelector(".remove");
 const checkBox = document.getElementById("check");
 const label = document.querySelector("label");
+const winner = document.querySelector(".winMessage");
+const endLabel = document.querySelector(".endLabel");
+const tryAgain = document.querySelector(".tryAgain");
 
 
 canvas.width = 900;
@@ -65,6 +68,7 @@ const resetGame = () => {
     ballGame.resetBall();
   })
   timer = setInterval(run, 1000 / 60);
+  endLabel.style.display = "none";
 }
 
 const keyboard = e => {
@@ -395,10 +399,18 @@ const run = () => {
   drawObject(collisionObjects, ctx)
   if (playerPoints === 10 || aiPoints === 10) {
     clearInterval(timer);
+    endLabel.style.display = "block";
+    if (playerPoints === 10) {
+      winner.innerHTML = "Player WIN !!!"
+    } else {
+      winner.innerHTML = "Ai WIN !!!"
+    }
   };
 }
 
 btnReset.addEventListener("click", resetGame);
+
+tryAgain.addEventListener("click", resetGame);
 
 window.addEventListener('keydown', keyboard);
 
