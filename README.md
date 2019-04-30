@@ -1,4 +1,4 @@
-#Pong Game 
+# Pong Game 
 
 This project is my version of the very popular old school game call Pong.
 Game is created using HTML5 Canvas in connections with JavaScript, this time I decided to experiment with object-oriented programming and show how easy we can manage our code add and remove things using this technique.
