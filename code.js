@@ -230,6 +230,7 @@ class Ball {
 
         if (this === collisionObjects[i])
           continue;
+        // Colision detection if we have more than one ball
         else if (((objectLeft <= ballLeft && ballLeft <= objectRight) || (objectLeft <= ballRight && ballRight <= objectRight)) && ((objectTop <= ballTop && ballTop <= objectBottom) || (objectTop <= ballBottom && ballBottom <= objectBottom))) {
           this.directionX = !this.directionX;
           break;
