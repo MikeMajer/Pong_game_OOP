@@ -58,6 +58,15 @@ body {
 .wrapper .menu button {
     font-size: 2em;
     margin: 5px 5px;
+    border: none;
+    padding: 5px 10px;
+    transition: .3s;
+    background-color: #000;
+    color: white;
+}
+
+.wrapper .menu button:hover {
+    color: #0ff;
 
 }
 

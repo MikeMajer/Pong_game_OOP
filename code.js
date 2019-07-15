@@ -13,7 +13,7 @@ const tryAgain = document.querySelector(".tryAgain");
 
 
 canvas.width = 900;
-canvas.height = 500;
+canvas.height = 400;
 let gameWidth;
 let playerPoints = 0;
 let aiPoints = 0;
@@ -100,7 +100,7 @@ class Paddle {
     this.color = color;
     this.positionX = positionX;
     this.positionY = positionY;
-    this.speed = 5;
+    this.speed = 15;
     this.middleHeight = height / 2;
   }
 
